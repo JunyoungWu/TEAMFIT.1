@@ -1,4 +1,4 @@
 김계란,8888,jubt6,sdf323,true
 김수란,6666,jubt9,sdf423,true
-쿠얼터,01044447844,lancerdie,khl123,true
-엄머머머,01044443333,mother123,mom123,true
+고길동,01044447844,lancerdie,khl123,true
+유미란,01044443333,mother123,mom123,true

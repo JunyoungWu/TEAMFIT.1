@@ -3,6 +3,6 @@ www,7777,jubt5,sdf123,false
 wys,9999,jubt8,sdf223,false
 김수란,6666,jubt9,sdf423,true
 우준영,01041047864,jyjyjy5,zkfktm1@,false
-쿠얼터,01044447844,lancerdie,khl123,true
-엄머머머,01044443333,mother123,mom123,true
+고길동,01044447844,lancerdie,khl123,true
+유미란,01044443333,mother123,mom123,true
 이상범,2020,hunter,killer,false

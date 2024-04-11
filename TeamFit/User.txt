@@ -1,4 +1,4 @@
 www,7777,jubt5,sdf123,false,김수란
 wys,8787,jubt8,sdf223,false,미정
-우준영,01041047864,jyjyjy5,zkfktm1@,false,쿠얼터
+우준영,01041047864,jyjyjy5,zkfktm1@,false,김계란
 이상범,2020,hunter,killer,false,김계란

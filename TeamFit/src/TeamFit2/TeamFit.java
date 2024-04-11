@@ -28,19 +28,24 @@ public class TeamFit {
 	public static void main(String[] args) {
 		boolean flag = false;
 		ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
-		System.out.println("Team Fit에 오신것을 환영합니다");
 		loadExerciseData(exerciseList);
 		loadInstructorData(instructorList);
 		loadPeopleData(poepleList);
 		loadUserData(userList);
+
+		System.out.println("================================================================");
+		System.out.println();
+		System.out.println("=====================Team Fit에 오신것을 환영합니다=====================");
+		System.out.println();
+		System.out.println("================================================================");
 		
 		login();
 
 		for (;;) {
 			int numberSelection = 0;
 			for (;;) {
-				System.out
-						.println("1. 마이페이지 2. 운동 신청(리스트) 3.운동 신청(검색) 4.개별 운동 삭제 5.전체 운동 삭제 6. 강사 리스트  7. 강사메뉴  8. 종료");
+				System.out.println("1. 마이페이지 2. 운동 신청(리스트) 3.운동 신청(검색) 4.개별 운동 삭제 5.전체 운동 삭제 6. 강사 리스트  7. 강사메뉴  8. 종료");
+				System.out.println();
 				System.out.print("메뉴 번호를 선택해주세요 : ");
 				try {
 					numberSelection = scan.nextInt();
@@ -381,18 +386,24 @@ public class TeamFit {
 							System.out.print("강의코드를 설정해주세요 : ");
 							
 							String newcode = scan.nextLine();
+							System.out.println();
 							System.out.println("newcode값:"+newcode);
 							scan.nextLine();
+							System.out.println();
 							System.out.print("운동이름을 설정해주세요 : ");
 							String newname = scan.nextLine();
 							System.out.println("newname값:"+newname);
 							scan.nextLine();
+							System.out.println();
 							System.out.print("위치를 설정해주세요 : ");
 							String newloca = scan.nextLine();
+							System.out.println();
 							System.out.println("newloca 값"+newloca);
 							scan.nextLine();
+							
 							System.out.print("날짜를 설정해주세요 : ");
 							String newdate = scan.nextLine();
+							System.out.println();
 							System.out.println("newdate 값:"+newdate);
 							System.out.print("인원수를 설정해주세요 : ");
 							int newmem = scan.nextInt();
@@ -564,10 +575,13 @@ public class TeamFit {
 	}
 
 	private static void viewmypage() {
+		System.out.println();
 	    System.out.println("현재 고객 정보");
-	    System.out.println("이름 : " + userName + ", 연락처 :" + userPNnum);
+	    System.out.println();
+	    System.out.println("이름 : " + userName + "\n연락처 :" + userPNnum);
 	    int menu = 0;
 	    while (true) {
+	    	System.out.println();
 	        System.out.println("1. 정보수정 2. 내 운동 리스트 3.담당 강사 정보  4. 계정삭제 5. 메인 메뉴로 돌아가기");
 	        System.out.print("메뉴를 선택해주세요 : ");
 	        try {
@@ -577,13 +591,15 @@ public class TeamFit {
 	    			for (;;) {
 	    				int info = 0;
 	    				for (;;) {
-
+	    					System.out.println();
 	    					System.out.println("수정할 정보를 선택해주세요");
+	    					System.out.println();
 	    					System.out.print("1.연락처 2. 비밀번호 3. 종료");
 	    					try {
 	    						info = scan.nextInt();
 	    						break;
 	    					} catch (InputMismatchException e) {
+	    						System.out.println();
 	    						System.out.println("정수를 입력해주세요");
 	    						scan.nextLine();
 
@@ -592,15 +608,20 @@ public class TeamFit {
 	    				switch (info) {
 	    				case 1:
 	    					scan.nextLine();
+	    					System.out.println();
 	    					System.out.println("수정할 연락처를 입력해주세요 : ");
 	    					String npnum = scan.nextLine();
-	    					for (User data : userList) {
+	    					/*for (User data : userList) {
 	    						if (data.getName().equals(userName) && data.getPnum().equals(userPNnum)) {
 	    							data.setPnum(npnum);
 	    							
 	    							break;
 	    						}
-	    					}
+	    					}*/
+	    					userList.stream()
+	    						.filter(data -> data.getName().equals(userName)&& data.getPnum().equals(userPNnum) )
+	    						.findFirst()
+	    						.ifPresent(data->data.setPnum(npnum));
 	    					for (People data : poepleList) {
 	    						if (data.getName().equals(userName)&& data.getPnum().equals(userPNnum)) {
 	    							data.setPnum(npnum);
@@ -650,6 +671,7 @@ public class TeamFit {
 	    			for (User data : userList) {
 	    			
 	    				if (data.getPnum().equals(userPNnum)) {
+	    					System.out.println();
 	    					System.out.println("현재 내 담당 강사 : "+data.getTeacherName());
 	    					break;
 	    				}
@@ -668,8 +690,10 @@ public class TeamFit {
 	    			}
 
 	    			if (foundUser) {
+	    				System.out.println();
 	    				System.out.println("사용자 정보가 성공적으로 삭제되었습니다.");
 	    			} else {
+	    				System.out.println();
 	    				System.out.println("사용자 정보를 찾지 못했습니다.");
 	    			}
 	    			break;
@@ -680,6 +704,7 @@ public class TeamFit {
 	    			break;
 	            }
 	        } catch (InputMismatchException e) {
+	        	System.out.println();
 	            System.out.println("정수를 입력해주세요");
 	            scan.nextLine(); // 버퍼 비우기
 	        }
@@ -688,7 +713,8 @@ public class TeamFit {
 
 	private static void login() {
 		for (;;) {
-			System.out.print("기존 회원 이시면 Y를, 아니면 N을 입력해주세요");
+			System.out.println("기존 회원 이시면 Y를, 아니면 N을 입력해주세요");
+			System.out.print("입력 : ");
 			boolean flag = false;
 			String s = scan.nextLine();
 			if (s.toUpperCase().equals("Y")) {
@@ -700,7 +726,9 @@ public class TeamFit {
 				String pw = scan.nextLine();
 				for (People data : poepleList) {
 					if (data.getId().equals(id) && data.getPassword().equals(pw)) {
+						System.out.println();
 						System.out.println("로그인에 성공하였습니다.");
+						System.out.println();
 						userName = data.getName();
 						userPNnum = data.getPnum();
 						flag = true;
@@ -726,19 +754,23 @@ public class TeamFit {
 
 	private static void signIn() {
 		boolean teach = false;
+		System.out.println();
 		System.out.print("고객의 이름을 입력하세요 : ");
 		String name = scan.nextLine();
 		scan.nextLine();
+		System.out.println();
 		System.out.print("고객의 연락처를 입력하세요 : ");
 		String pnum = scan.nextLine();
 		scan.nextLine();
+		System.out.println();
 		System.out.print("고객의 id를 입력하세요 : ");
 		String id = scan.nextLine();
 		scan.nextLine();
+		System.out.println();
 		System.out.print("고객의 비밀번호를 입력하세요 : ");
 		String pw = scan.nextLine();
 		scan.nextLine();
-
+		System.out.println();
 		System.out.print("강사로 가입하시는건가요? (Y / N) : ");
 		String teacher = scan.nextLine();
 
@@ -751,6 +783,7 @@ public class TeamFit {
 			userList.add(new User(name, pnum, id, pw, teach, "미정"));
 
 		} else {
+			System.out.println();
 			System.out.println("올바르게 입력해주세요");
 		}
 

@@ -1,10 +1,10 @@
 package TeamFit2;
 
-import java.io.Serializable;
+
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Exercise implements Comparator<Exercise>, Serializable {
+public class Exercise implements Comparator<Exercise> {
 	private String classCode; 		//강의코드
 	
 	private String name; 			//운동이름

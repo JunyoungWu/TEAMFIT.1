@@ -17,7 +17,7 @@ public class ExerciseCart implements ExerciseInterface {
 
 	public void saveExerciseData(String userName,String pNum) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(userName +pNum+ "_Exercise.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(userName+"_"+pNum + "_Exercise.txt"));
             for (Exercise exercise : exerciselist) {
                 writer.write(exercise.getClassCode() + "," + exercise.getName() + "," + exercise.getLocation() + "," + exercise.getDate() + "," + exercise.getMemNum()+","+exercise.getTeacherName()+","+exercise.getPrice());
                 writer.newLine(); 
@@ -53,10 +53,6 @@ public class ExerciseCart implements ExerciseInterface {
         }
     }
 
-	@Override
-	public boolean isCartInExercise(String id) {
-		return false;
-	}
 
 	@Override
 	public void printExerciseList(ArrayList<Exercise> exerciselist) {
