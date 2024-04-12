@@ -124,38 +124,31 @@ public class TeamFit {
 
 					switch (num) {
 					case 1:
-						scan.nextLine();
-						flag = false;
 						System.out.print("검색할 운동의 이름을 정확히 입력해주세요 > ");
 						String exname = scan.nextLine();
-						for (Exercise data : exerciseList) {
-							if (exname.equals(data.getName())) {
-								System.out.println("검색 결과");
-								System.out.println(data.toString());
-								flag = true;
-							}
-
+						List<Exercise> filteredExercises = exerciseList.stream()
+						        .filter(data -> exname.equals(data.getName()))
+						        .collect(Collectors.toList());
+						if (filteredExercises.isEmpty()) {
+						    System.out.println("검색결과가 없습니다");
+						} else {
+						    System.out.println("검색 결과");
+						    // 필터링된 결과를 출력
+						    filteredExercises.forEach(data -> System.out.println(data.toString()));
 						}
-						if (flag == false) {
-							System.out.println("검색결과가 없습니다");
-						}
-
 						break;
 					case 2:
-						scan.nextLine();
-						flag = false;
-						System.out.print("검색할 운동의 코드를 정확히 입력해주세요 > ");
-						String excode = scan.nextLine();
-						for (Exercise data : exerciseList) {
-							if (excode.equals(data.getClassCode())) {
-								System.out.println("검색 결과");
-								System.out.println(data.toString());
-								flag = true;
-							}
-
-						}
-						if (flag == false) {
-							System.out.println("검색결과가 없습니다");
+						System.out.print("검색할 운동의 이름을 정확히 입력해주세요 > ");
+						String exname = scan.nextLine();
+						List<Exercise> filteredExercises = exerciseList.stream()
+						        .filter(data -> exname.equals(data.getClassCode()))
+						        .collect(Collectors.toList());
+						if (filteredExercises.isEmpty()) {
+						    System.out.println("검색결과가 없습니다");
+						} else {
+						    System.out.println("검색 결과");
+						    // 필터링된 결과를 출력
+						    filteredExercises.forEach(data -> System.out.println(data.toString()));
 						}
 						break;
 					case 3:
