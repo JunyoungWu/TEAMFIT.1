@@ -61,7 +61,7 @@ public class T_UserVO {
 	@Override
 	public String toString() {
 		return "[유저코드=" + t_user_code + ", 이름=" + t_name + ", 전화번호=" + t_pnum + ", 아이디=" + t_id
-				+ ",   t_teacherName=" + t_teacherName + "]";
+				+ ",   강사명=" + t_teacherName + "]";
 	}
     
     

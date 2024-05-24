@@ -10,6 +10,7 @@ import tf.controller.DBUtil;
 import tf.model.ExerciseVO;
 
 public class ExerciseDAO {
+	
 	public void getExerciseTotalList() {
 		String sql = "select * from exercise order by e_classCode";
 		Connection con = null;
@@ -104,35 +105,71 @@ public class ExerciseDAO {
 	}
 
 	public void deleteExercise(int e_no) {
-		StringBuffer sql = new StringBuffer();
-		sql.append("delete from exercise where e_no = ?");
+		
+		String sql ="delete from exercise where e_no = ?"; 
+		String sql1 = "DELETE FROM Exercise_Application WHERE e_no = ?";
 		Connection con = null;
-		PreparedStatement pstmt = null;
+	    PreparedStatement pstmt = null;
+	    Connection con1 = null;
+	    PreparedStatement pstmt1 = null;
+
+	    try {
+	        con = DBUtil.makeConnections();
+	        pstmt1 = con.prepareStatement(sql1);
+	        pstmt1.setInt(1, e_no);
+	        
+
+	        int i = pstmt1.executeUpdate();
+	        if (i > 0) {
+	            System.out.println("Exercise Application이 삭제되었습니다.");
+	        } else {
+	            System.out.println("Exercise Application 삭제에 실패하였습니다.");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstmt != null)
+	                pstmt.close();
+	            if (con != null)
+	                con.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+		
+	
 		try {
+			
 			con = DBUtil.makeConnections();
-			pstmt = con.prepareStatement(sql.toString());
+			
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, e_no);
+		
+			
 			int i = pstmt.executeUpdate();
-			if (i == 1) {
+			
+			if (i > 0) {
 				System.out.println("운동 삭제 완료");
+				
 			} else {
 				System.out.println("운동 삭제 실패 ");
+				
 			}
 		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
-		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				System.out.println("e=[" + e + "]");
-			}
-		}
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	        	
+	            if (pstmt != null)
+	                pstmt.close();
+	            if (con != null)
+	                con.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+		
+		
 	}
 }

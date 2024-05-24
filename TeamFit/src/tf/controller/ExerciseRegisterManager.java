@@ -9,6 +9,7 @@ import tf.controller.ExerciseDAO;
 import tf.model.ExerciseVO;
 
 public class ExerciseRegisterManager {
+	public static Scanner input = new Scanner(System.in);
 	public void exerciseList() {
 		ExerciseDAO ed = new ExerciseDAO();
 		System.out.println("전체 운동 리스트 ");
@@ -17,20 +18,24 @@ public class ExerciseRegisterManager {
 	}
 
 	public void exerciseDelete() {
-		Scanner scan = new Scanner(System.in);
+		
 		ExerciseDAO ed = new ExerciseDAO();
-		ExerciseVO evo = new ExerciseVO();
-		int e_no;
+		
+		
 		System.out.println("전체 운동 리스트");
 		ed.getExerciseTotalList();
 		System.out.println();
 		System.out.println("삭제할 운동 일련 번호 입력");
-		System.out.println("일련 번호 : ");
-		e_no = scan.nextInt();
+		System.out.print("일련 번호 : ");
+		int e_no = input.nextInt();
+		
 		ed.deleteExercise(e_no);
+		
 		System.out.println("전체 운동 리스트");
 		ed.getExerciseTotalList();
 		System.out.println();
+		
+		
 	}
 
 	public void exerciseApply() {

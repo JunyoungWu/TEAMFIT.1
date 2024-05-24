@@ -22,6 +22,13 @@ public class TeamFitMain {
 		
 		
 		Connection con = DBUtil.makeConnections();
+		System.out.println("================================================================");
+		System.out.println();
+		System.out.println("=====================Team Fit에 오신것을 환영합니다====================");
+		System.out.println();
+		System.out.println("================================================================");
+		System.out.println();
+
 		start();
 		
 		mainMenu();
@@ -41,7 +48,7 @@ public class TeamFitMain {
 		            user = t_UserRegisterManager.login();
 		            if (user != null) {
 		                boolean isInstructor = instructorRegisterManager.checkInstructor(user);
-		                System.out.println("isInstructor 상태: " + isInstructor);
+		              
 		                instructor = true;
 		                break;
 		            }
@@ -66,6 +73,7 @@ public class TeamFitMain {
 		while (true) {
 			try {
 				MenuViewer.mainMenuView();
+				
 				choiceNum = MenuViewer.choice.nextInt();
 				MenuViewer.choice.nextLine();
 				switch (choiceNum) {
@@ -94,7 +102,7 @@ public class TeamFitMain {
 				}
 			} catch (Exception e) {
 				System.out.println("\n입력에 오류가 있습니다.\n프로그램을	다시 시작하세요.");
-				return; // ELF PSY KONG GRU
+				return; 
 			}
 		}
 
@@ -132,6 +140,7 @@ public class TeamFitMain {
 			case EXERCISE_MENU_CHOICE.APPLY:
 				System.out.println("");
 				exerciseregistermanager.exerciseApply();
+				
 				break;
 				
 			case EXERCISE_MENU_CHOICE.DELETE:

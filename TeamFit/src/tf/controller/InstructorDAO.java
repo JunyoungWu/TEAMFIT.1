@@ -24,10 +24,10 @@ public class InstructorDAO {
             rs = pstmt.executeQuery();
             
             if(rs.next()) {
-                System.out.println("강사로 등록되어 있습니다.");
+                System.out.println("강사 로그인");
                 flag = true;
             } else {
-                System.out.println("강사로 등록되어 있지 않습니다.");
+                System.out.println("유저 로그인");
                 flag = false;
             }
         } catch (SQLException e) {
