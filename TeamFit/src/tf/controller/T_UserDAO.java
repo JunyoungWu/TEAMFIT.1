@@ -1,5 +1,6 @@
 package tf.controller;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,30 +11,26 @@ import tf.model.T_UserVO;
 public class T_UserDAO {
     
 	public boolean setRegisterUser(String userID, String password, String name, String phoneNumber) {
-	    String sql = "INSERT INTO T_USER (t_user_code, t_name, t_pnum, t_id, t_password) VALUES (user_code_seq.NEXTVAL, ?, ?, ?, ?)";
+	    String sql = "{call REGISTER_USER(?, ?, ?, ?)}";
 	    Connection con = null;
-	    PreparedStatement pstmt = null;
-
+	    CallableStatement cstmt = null;
 	    try {
-	        con = DBUtil.makeConnections();
-	        pstmt = con.prepareStatement(sql);
-	        pstmt.setString(1, name);
-	        pstmt.setString(2, phoneNumber);
-	        pstmt.setString(3, userID);
-	        pstmt.setString(4, password);
-	        int i = pstmt.executeUpdate();
-	        if (i == 1) {
-				System.out.println("가입 성공");
-			} else {
-				System.out.println("가입 실패");
-			}
+	        con = DBUtil.makeConnections(); // 적절한 DB 연결 메소드를 사용하세요
+	        cstmt = con.prepareCall(sql);
+	        cstmt.setString(1, name);
+	        cstmt.setString(2, phoneNumber);
+	        cstmt.setString(3, userID);
+	        cstmt.setString(4, password);
+	        
+	        cstmt.execute();
+	        System.out.println("가입 성공");
 	        return true;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;
 	    } finally {
 	        try {
-	            if (pstmt != null) pstmt.close();
+	            if (cstmt != null) cstmt.close();
 	            if (con != null) con.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -41,38 +38,34 @@ public class T_UserDAO {
 	    }
 	}
 
-	public boolean updateUserInfo(int userCode, String newPhoneNumber, String newPassword) {
-	    String sql = "UPDATE T_USER SET t_pnum = ?, t_password = ? WHERE t_user_code = ?";
-	    Connection con = null;
-	    PreparedStatement pstmt = null;
 
+	public boolean updateUserInfo(int userCode, String newPhoneNumber, String newPassword) {
+	    String sql = "{call UPDATE_USER_INFO(?, ?, ?)}";
+	    Connection con = null;
+	    CallableStatement cstmt = null;
 	    try {
-	        con = DBUtil.makeConnections();
-	        pstmt = con.prepareStatement(sql);
-	        pstmt.setString(1, newPhoneNumber);
-	        pstmt.setString(2, newPassword);
-	        pstmt.setInt(3, userCode);
+	        con = DBUtil.makeConnections(); // 적절한 DB 연결 메소드를 사용하세요
+	        cstmt = con.prepareCall(sql);
+	        cstmt.setInt(1, userCode);
+	        cstmt.setString(2, newPhoneNumber);
+	        cstmt.setString(3, newPassword);
 	        
-	        int rowsAffected = pstmt.executeUpdate();
-	        if (rowsAffected > 0) {
-	            System.out.println("정보가 성공적으로 변경되었습니다.");
-	            return true;
-	        } else {
-	            System.out.println("정보 변경에 실패하였습니다.");
-	            return false;
-	        }
+	        cstmt.execute();
+	        System.out.println("정보가 성공적으로 변경되었습니다.");
+	        return true;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;
 	    } finally {
 	        try {
-	            if (pstmt != null) pstmt.close();
+	            if (cstmt != null) cstmt.close();
 	            if (con != null) con.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
 	}
+
 
 	public void setUserData(String userID, String password) {
 	    String sql = "SELECT * FROM T_USER WHERE t_id = ? AND t_password = ?";

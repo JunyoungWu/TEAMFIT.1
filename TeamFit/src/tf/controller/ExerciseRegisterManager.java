@@ -27,9 +27,9 @@ public class ExerciseRegisterManager {
 		System.out.println();
 		System.out.println("삭제할 운동 일련 번호 입력");
 		System.out.print("일련 번호 : ");
-		int e_no = input.nextInt();
+		String e_classcode = input.nextLine();
 		
-		ed.deleteExercise(e_no);
+		ed.deleteExercise(e_classcode);
 		
 		System.out.println("전체 운동 리스트");
 		ed.getExerciseTotalList();
