@@ -93,6 +93,9 @@ public class TeamFitMain {
 				case MAIN_MENU_CHOICE.DELETE_MENU:
 					delEx();
 					break;
+				case MAIN_MENU_CHOICE.ADD_TEACHER_MENU:
+					addT();
+					break;
 				case MAIN_MENU_CHOICE.EXIT:
 					System.out.println("프로그램을 종료합니다.");
 					return;
@@ -106,6 +109,10 @@ public class TeamFitMain {
 			}
 		}
 
+	}
+	private static void addT() {
+		T_UserRegisterManager turm = new T_UserRegisterManager();
+		turm.addUserTeacher(user);
 	}
 
 	private static void edit() {

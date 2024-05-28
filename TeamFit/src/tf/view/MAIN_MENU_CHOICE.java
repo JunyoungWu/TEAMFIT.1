@@ -7,7 +7,8 @@ public interface MAIN_MENU_CHOICE {
 	int APPLY_MENU = 3;
 	int DELETE_MENU = 4;
 	int EDIT_MENU = 5;
-	int EXIT = 6;
+	int ADD_TEACHER_MENU=6;
+	int EXIT = 7;
 
 	
 }

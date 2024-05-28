@@ -37,7 +37,34 @@ public class T_UserDAO {
 	        }
 	    }
 	}
-
+	
+	public void setAddUserTeacher (int userCode,String teacherName) {
+		String sql = "CALL ADD_USER_TEACHER (?,?)";
+		Connection con = null;
+	    CallableStatement cstmt = null;
+		 try {	
+		        con = DBUtil.makeConnections(); // 적절한 DB 연결 메소드를 사용하세요
+		        cstmt = con.prepareCall(sql);
+		        cstmt.setInt(1, userCode);
+		        cstmt.setString(2, teacherName);
+		      
+		        
+		        cstmt.execute();
+		        System.out.println("정보가 성공적으로 변경되었습니다.");
+		       
+		    }catch (SQLException e) {
+		        e.printStackTrace();
+		       
+		    } finally {
+		        try {
+		            if (cstmt != null) cstmt.close();
+		            if (con != null) con.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		
+	}
 
 	public boolean updateUserInfo(int userCode, String newPhoneNumber, String newPassword) {
 	    String sql = "{call UPDATE_USER_INFO(?, ?, ?)}";

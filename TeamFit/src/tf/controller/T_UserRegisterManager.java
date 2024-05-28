@@ -38,6 +38,14 @@ public class T_UserRegisterManager {
 		
 	}
 	
+	public void addUserTeacher (T_UserVO user) {
+		 T_UserDAO userDAO = new T_UserDAO();
+		Scanner input = new Scanner(System.in);
+		System.out.print("신청할 강사의 이름을 입력해주세요 : ");
+		String teacherName = input.nextLine();
+		userDAO.setAddUserTeacher(user.getT_user_code(), teacherName);
+		
+	}
 	 public void changeUserInfo(T_UserVO user) {
 	        Scanner input = new Scanner(System.in);
 	        T_UserDAO userDAO = new T_UserDAO();

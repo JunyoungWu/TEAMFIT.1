@@ -11,7 +11,7 @@ public class MenuViewer {
 	}
 	public static void mainMenuView() {
 		
-		System.out.println("1. 마이페이지 2. 강사 메뉴 3. 운동 신청 4.운동 삭제 5. 정보수정 6. 종료");
+		System.out.println("1. 마이페이지 2. 강사 메뉴 3. 운동 신청 4.운동 삭제 5. 정보 수정 6. 강사 신청 7. 종료");
 		System.out.println();
 		System.out.print("메뉴 번호를 선택해주세요 : ");
 	}
