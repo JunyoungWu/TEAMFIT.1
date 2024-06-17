@@ -56,8 +56,8 @@ public class CommentsDAO {
             pstmt.setInt(1, comment.getNum());
             pstmt.setString(2, comment.getComContent());
             System.out.println("메서드 진입 2.5");
-            pstmt.executeUpdate();
-          	System.out.println("executeUpdate"+pstmt.executeUpdate());
+      
+          	
           	if(pstmt.executeUpdate()==1) {
           		flag = true;
           	}
