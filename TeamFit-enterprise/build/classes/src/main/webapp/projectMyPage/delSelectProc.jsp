@@ -18,9 +18,10 @@ if (selectedMembers != null && selectedMembers.length > 0) {
     %>
     <script>
     alert("선택된 회원이 삭제되었습니다.");
+	window.location.href = "index.jsp";
     </script>
     <%
-    response.sendRedirect("index.jsp?deleted=true");
+    
 } else {
    
     response.sendRedirect("manageMembers.jsp?error=noSelection");

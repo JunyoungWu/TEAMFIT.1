@@ -46,9 +46,7 @@ public class CommentsDAO {
         String sql = "INSERT INTO comments (com_num, com_writer, num, com_content, regdate) VALUES (comments_seq.NEXTVAL, '강사', ?, ?, SYSTIMESTAMP)";
 
         try {
-        	System.out.println("메서드 진입 2");
-        	System.out.println("comment.getComWriter()"+comment.getComWriter());
-        	System.out.println("comment.getComContent()"+comment.getComContent());
+        
         	
             conn = cp.getConnection();
             pstmt = conn.prepareStatement(sql);
@@ -56,8 +54,8 @@ public class CommentsDAO {
             pstmt.setInt(1, comment.getNum());
             pstmt.setString(2, comment.getComContent());
             System.out.println("메서드 진입 2.5");
-      
-          	
+        
+ 
           	if(pstmt.executeUpdate()==1) {
           		flag = true;
           	}
@@ -65,7 +63,7 @@ public class CommentsDAO {
         } finally {
         	System.out.println("메서드 진입 4");
             if (pstmt != null) {
-            	System.out.println("메서드 진입 2");
+            	System.out.println("finally 메서드 진입 2");
             	pstmt.close();
             }
             if (conn != null) {

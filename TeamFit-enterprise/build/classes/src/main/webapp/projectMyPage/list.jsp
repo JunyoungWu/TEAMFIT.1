@@ -4,6 +4,27 @@
 <%@ page import="projectMyPage.*, java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ include file="color.jsp"%>
+<%
+String loginID = (String) session.getAttribute("loginID");
+String check = (String) session.getAttribute("check");
+
+%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+	header {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: #569ee6; /* 예시 배경색 */
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 1%;
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+</style>
+
 <%!// 수정 <1>
 int pageSize = 10;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");%>
@@ -18,6 +39,7 @@ int startRow = (currentPage - 1) * pageSize + 1;
 int endRow = currentPage * pageSize;
 int count = 0;
 int number = 0;
+
 List<BoardVO> articleList = null;
 BoardDAO dbPro = BoardDAO.getInstance();
 count = dbPro.getArticleCount();//전체 글수
@@ -29,19 +51,54 @@ number=count-(currentPage-1)*pageSize;//수정<4>
 <html>
 <head>
 <title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+
 </head>
+
 <body bgcolor="<%=bodyback_c%>">
- 
-	<center>
+ <header>
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+
+		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+		
+        		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div>
+			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
+			<input type="button" value="회원가입" onclick="loadPage('regForm.jsp')" />
+		</div>
+		<% } %>
+		
+	</header>
+	
+	<center id="list">
 		<b>글목록(전체 글:<%=count%>)
 		</b>
 		<table width="700">
 			<tr>
-				<td align="left" bgcolor="<%=value_c%>"><a
-					href="index.jsp">메인으로</td>
-				<td align="right" bgcolor="<%=value_c%>"><a
-					href="writeForm.jsp">글쓰기</a>
+				
+				<td style="text-decoration: none;" align="right" bgcolor="<%=value_c%>"><a
+					 href="writeForm.jsp">글쓰기</a>
 				</td>
 		</table>
 		<%
@@ -83,8 +140,8 @@ number=count-(currentPage-1)*pageSize;//수정<4>
   <img src="images/level.gif" width="<%=wid%>" height="16">
  <%}%>
 					
-					 <a
-					href="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>"> <!-- 수정<6> -->
+					 <a 
+					href="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>"> 
 						<%=article.getSubject()%></a> <%
  if (article.getReadcount() >= 20) {
  %> <img

@@ -15,6 +15,7 @@ String check = (String) session.getAttribute("check");
 <script type="text/javascript">
 	var insloginID = '<%= loginID %>';
 	var check = '<%= check %>';
+	
 	   function loadPage(page) {
 	        $.ajax({
 	            url: page,
@@ -37,6 +38,7 @@ String check = (String) session.getAttribute("check");
         }
     }
 </script>
+
 <style>
 .slideshow {
 	border-radius:15px;
@@ -48,7 +50,9 @@ String check = (String) session.getAttribute("check");
 	position: relative;
 	 overflow: hidden; 
 }
-
+ .footer {
+            text-align: center;
+        }
 .slideshow_slides {
 	position: absolute;
 	width: 100%;
@@ -128,6 +132,7 @@ header {
 	
 }
 .right {
+font-size: 13px;
 	display: flex;
 	align-items: center;
 }
@@ -140,11 +145,21 @@ header {
   border: 2px solid rgb(138, 175, 231);
   border-radius: 30px;
   color: black;
-  font-size: 25px;
+  font-size: 15px;
   text-decoration: none;
   padding: 10px 20px; /* 상하 10px, 좌우 20px의 패딩을 설정 */
   display: inline-block; /* a 요소를 블록 요소처럼 취급하되, 줄바꿈은 일어나지 않도록 설정 */
   box-sizing: border-box; /* 패딩과 보더를 포함하여 크기를 계산 */
+}
+#content {
+    background-color: #569ee6;
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%; /* 추가 */
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box; /* 추가 */
 }
 .middle {
 	width: 90%;
@@ -168,7 +183,7 @@ header {
             <a href="#" onclick="handleInstructorMenuClick()">강사 메뉴</a>&nbsp;&nbsp;
             <a href="#" onclick="loadPage('addApplication.jsp')">운동 신청</a>&nbsp;&nbsp;
             <a href="#" onclick="loadPage('deleteExerciseForm.jsp')">운동 삭제</a>&nbsp;&nbsp;
-            <a href="#" onclick="loadPage('list.jsp')">문의 게시판</a>&nbsp;&nbsp;
+            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
            
         </div>
 		<div class="right">
@@ -184,7 +199,7 @@ header {
            
             <a href="#" onclick="loadPage('addApplication.jsp')">운동 신청</a>&nbsp;&nbsp;
             <a href="#"  onclick="loadPage('delApplication.jsp')" >운동 삭제</a>&nbsp;&nbsp;
-            <a href="#" onclick="loadPage('list.jsp')">문의 게시판</a>&nbsp;&nbsp;
+           <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
         </div>
         		<div class="right">
 			<span><%=loginID%>님 환영합니다.</span> 
@@ -204,7 +219,9 @@ header {
 		
 	</header>
 	<hr>
-	<div id="content" style="background-color: #569ee6; width: 90%; margin-left: 5%; border-radius: 10px;"></div>
+	  <div id="content" >
+	  
+	  </div>
 	<div  id="slideshow" class="slideshow">
 		<div class="slideshow_slides">
 			<a href="#"><img src="./image/slide-1.jpg" alt="slide1" /></a>
@@ -225,6 +242,20 @@ header {
 		<br>
 	</div>
 	<hr>
-	
+	  <footer>
+            <div class="footer content1">
+                <a href="">다운로드</a>
+                <a href="">개인정보처리방침</a>
+                <a href="">신고</a>
+                <a href="">이메일무단수집거부</a>
+            </div>
+            <div  class="footer content2">
+                <p>팀피트컴퍼니 : 서울시 성동구 무학로2길 54 신방빌딩 4,5층 tel:012-345-7890</p>
+                <p>
+                    Copyright <span>ⓒ</span> 2018 tmft, Inc. All right reserved. 
+                    Adress: 23-455-1234
+                </p>
+            </div>
+        </footer>
 </body>
 </html>

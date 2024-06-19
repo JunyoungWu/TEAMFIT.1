@@ -16,8 +16,14 @@ pageEncoding="UTF-8" import="projectMyPage.*" %>
  <center>
  <%
  if(flag){
-  out.println("<b>회원가입을 축하 드립니다.</b><br/>");
-  out.println("<a href=index.jsp>메인페이지로 이동</a>");
+	 
+	 %>
+	    <script type="text/javascript">
+	        alert("운동 등록 완료");
+	        window.location.href = "index.jsp";
+	    </script>
+	<%
+
  }else{
   out.println("<b>다시 입력하여 주십시오.</b><br/>");
   out.println("<a href=regForm.jsp>다시 가입</a>");

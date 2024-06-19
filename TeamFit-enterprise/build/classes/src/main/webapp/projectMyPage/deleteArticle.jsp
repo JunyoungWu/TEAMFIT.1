@@ -4,11 +4,13 @@
  <%
   int num = Integer.parseInt(request.getParameter("num").trim());
   String pageNum = request.getParameter("pageNum");
+  String loginID = (String) session.getAttribute("loginID");
+  String check = (String) session.getAttribute("check");
  %>
  <html>
  <head>
  <title>게시판</title>
- <link href="style.css" rel="stylesheet" type="text/css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
  <script language="JavaScript">      
 <!--      
   function deleteSave(){
@@ -22,6 +24,40 @@
 </script>
  </head>
  <body bgcolor="<%=bodyback_c%>">
+ <header >
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+
+		<div  class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+		
+        		<div  class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div>
+			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
+			<input type="button" value="회원가입" onclick="loadPage('regForm.jsp')" />
+		</div>
+		<% } %>
+		
+	</header>
  <center><b>글삭제</b>
 <br></br>
  <form method="POST" name="delForm"  action="deleteArticleProc.jsp?pageNum=<%=pageNum%>"onsubmit="return deleteSave()"> 
@@ -39,7 +75,7 @@
  <tr height="30">
     <td align=center bgcolor="<%=value_c%>">
       <input type="submit" value="글삭제" >
-      <input type="button" value="글목록" onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'">     
+      <input type="button" value="글목록" onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'" >     
    </td>
  </tr>  
 </table> 

@@ -19,18 +19,10 @@
     <meta http-equiv="Refresh" content="3;url=index.jsp">
 </head>
 <body>
-    <center>
-        <%
-            if (flag) {
-        %>
-            <font size="5">운동 정보가 삭제되었습니다.<br>3초 후에 메인 페이지로 이동합니다.</font>
-        <%
-            } else {
-        %>
-            <font size="5">운동 정보 삭제에 실패했습니다.<br>3초 후에 다시 시도해 주세요.</font>
-        <%
-            }
-        %>
-    </center>
+  	<script type="text/javascript">
+			alert("운동 삭제 완료");
+			window.location.href = "index.jsp";
+		</script> 
+  
 </body>
 </html>

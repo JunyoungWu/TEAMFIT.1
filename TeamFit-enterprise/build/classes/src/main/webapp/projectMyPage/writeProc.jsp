@@ -13,5 +13,9 @@
     article.setIp(request.getRemoteAddr());
     BoardDAO dbPro = BoardDAO.getInstance();
     dbPro.insertArticle(article);
-    response.sendRedirect("list.jsp");
+   
  %>
+ 	<script type="text/javascript">
+			alert("게시글 작성 완료");
+			window.location.href = "index.jsp";
+		</script> 

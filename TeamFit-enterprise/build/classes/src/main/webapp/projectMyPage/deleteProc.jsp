@@ -16,11 +16,10 @@ if (check == 1) {
 %>
 <meta http-equiv="Refresh" content="3;url=index.jsp">
 <body>
-	<center>
-		<font size="5" > 회원정보가 삭제되었습니다<br></br> 3초후에 로그인 페이지로
-			이동합니다
-		</font>
-	</center>
+	<script type="text/javascript">
+			alert("운동 삭제 완료");
+			window.location.href = "index.jsp";
+		</script> 
 	<%
 	} else {
 	%>

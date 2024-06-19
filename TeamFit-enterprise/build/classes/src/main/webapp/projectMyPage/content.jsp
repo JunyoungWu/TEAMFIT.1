@@ -7,27 +7,79 @@
 <%@ page import="java.util.List"%>
 
 <%
+String loginID = (String) session.getAttribute("loginID");
 String check = (String) session.getAttribute("check");
 int num = Integer.parseInt(request.getParameter("num"));
 String pageNum = request.getParameter("pageNum");
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
+int currentPage = Integer.parseInt(pageNum);
 BoardDAO dbPro = BoardDAO.getInstance();
 BoardVO article = dbPro.getArticle(num);
+CommentsVO vo = new CommentsVO();
+CommentsDAO dao = new CommentsDAO();
+String comContent = (String)(request.getParameter("comContent"));
+if(comContent!=null){
+	vo.setComContent(comContent);
+	vo.setNum(num);
+	dao.insertComment(vo);
+}
 List<CommentsVO> commentList = CommentsDAO.getInstance().getComments(num);
 %>
 
 <%@ include file="color.jsp"%>
 <html>
 <head>
+ 
 <title>게시판</title>
-<link href="css/style.css" rel="stylesheet" type="text/css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
 </head>
 <body bgcolor="<%=bodyback_c%>">
-<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+<header style="display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: #569ee6; /* 예시 배경색 */
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 1%;
+	box-sizing: border-box;
+	border-radius: 10px;">
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+
+		<div  class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+		
+        		<div  class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div>
+			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
+			<input type="button" value="회원가입" onclick="loadPage('regForm.jsp')" />
+		</div>
+		<% } %>
+		
+	</header>
+	<br><br><hr><br>
 <center>
-    <b>글내용 보기</b><br><br>
-    <table width="500" border="1" cellspacing="0" cellpadding="0" bgcolor="<%=bodyback_c%>" align="center">
+    <b></b><br><br>
+    <table  border="1" cellspacing="0" cellpadding="0" bgcolor="<%=bodyback_c%>" align="center">
         <tr height="30">
             <td align="center" width="125" bgcolor="<%=value_c%>">글번호</td>
             <td align="center" width="125"><%=article.getNum()%></td>
@@ -50,11 +102,11 @@ List<CommentsVO> commentList = CommentsDAO.getInstance().getComments(num);
         </tr>
         <tr height="30">
             <td colspan="4" bgcolor="<%=value_c%>" align="right">
-                <input type="button" value="글수정" onclick="document.location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
+<input type="button" value="글수정" onclick="window.location.href = 'updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="button" value="글삭제" onclick="document.location.href='deleteArticle.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
+<input type="button" value="글삭제" onclick="window.location.href = 'deleteArticle.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="button" value="글목록" onclick="document.location.href='list.jsp'">
+<input type="button" value="글목록" onclick="window.location.href = 'list.jsp'">
             </td>
         </tr>
     </table>
@@ -93,7 +145,7 @@ List<CommentsVO> commentList = CommentsDAO.getInstance().getComments(num);
     <!-- 댓글 작성 폼 -->
     <% if (check.equals("강사")) { %>
     <div class="commentWrite">
-        <form action="commentProc.jsp" method="post">
+        <form action="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>" method="post">
             <input type="hidden" name="num" value="<%=num%>">
             <table>
                 <tr>
@@ -104,12 +156,13 @@ List<CommentsVO> commentList = CommentsDAO.getInstance().getComments(num);
                 <tr>
                     <td style="text-align: right;">
                     <input type="hidden" name="num" value="<%=article.getNum()%>">
-                        <button type="submit">댓글 작성</button>
+                        <button onclick="loadPage('content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>')"  type="submit">댓글 작성</button>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
+     
     <% } %>
 </center>
 </body>

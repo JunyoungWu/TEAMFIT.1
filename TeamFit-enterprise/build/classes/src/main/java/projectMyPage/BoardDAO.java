@@ -170,7 +170,7 @@ public class BoardDAO {
 		    step = 0;
 		    depth = 0;
 		 }// 쿼리를 작성
-		sql = "insert into board(num, writer, email, subject, pass, regdate, ref, step, depth, content, ip,readcount) values(board_seq.nextval,?,?,?,?,?,?,?,?,?,?,0)";
+		sql = "insert into board(num, writer, email, subject, pass, regdate, ref, step, depth, content, ip) values(board_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
 		 pstmt = conn.prepareStatement(sql);
 		 pstmt.setString(1, article.getWriter());
 		 pstmt.setString(2, article.getEmail());
@@ -191,51 +191,13 @@ public class BoardDAO {
 		 if (conn != null) try { conn.close(); } catch (SQLException ex) {}
 		    }
 		 }
-	
-	public BoardVO getBoard(int num) throws SQLException {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        BoardVO board = null;
-        String sql = "SELECT * FROM board WHERE num = ?";
 
-        try {
-            conn = cp.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, num);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                board = new BoardVO();
-                board.setNum(rs.getInt("num"));
-                board.setWriter(rs.getString("writer"));
-                board.setEmail(rs.getString("email"));
-                board.setSubject(rs.getString("subject"));
-                board.setPass(rs.getString("pass"));
-                board.setReadcount(rs.getInt("readcount"));
-                board.setRef(rs.getInt("ref"));
-                board.setStep(rs.getInt("step"));
-                board.setDepth(rs.getInt("depth"));
-                board.setRegdate(rs.getTimestamp("regdate"));
-                board.setContent(rs.getString("content"));
-                board.setIp(rs.getString("ip"));
-            }
-        } finally {
-            if (rs != null) rs.close();
-            if (pstmt != null) pstmt.close();
-            if (conn != null) cp.releaseConnection(conn);
-        }
-        return board;
-    }
-	
 	public int getArticleCount() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int x = 0;
 		try {
-			
 			conn = ConnUtil.getConnection();
 			pstmt = conn.prepareStatement("select count(*) from board");
 			rs = pstmt.executeQuery();

@@ -13,6 +13,58 @@
         }
     }
 </script>
+   <style type="text/css">
+ body {
+        
+        background-color: #1473d3;
+    }
+
+ 
+
+  table {
+        width: 60%;
+       border-collapse: collapse;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+td {
+        padding: 10px;
+    } 
+
+td[colspan="2"] {
+        background-color: #569ee6;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+    }
+
+
+
+input[type="submit"] {
+        width: 30%;
+        padding: 10px;
+        background-color: #1473d3;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+input[type="text"]{
+	width: 30%;
+	height: 50px;
+	border: none;
+        border-radius: 5px;
+           font-size: 16px;
+}
+ input[type="submit"]:hover {
+        background-color: #105a9d;
+    } 
+</style>
 </head>
 <body>
     <h1>내 운동 목록</h1>

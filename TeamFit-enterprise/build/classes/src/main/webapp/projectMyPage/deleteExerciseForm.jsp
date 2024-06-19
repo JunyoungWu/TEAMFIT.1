@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>운동 삭제</title>
+ 
 </head>
 <body>
     <center>
@@ -44,7 +45,7 @@
             <input type="submit" value="삭제">
         </form>
 
-        <h2>운동 목록</h2>
+    <br>
 
       
     </center>

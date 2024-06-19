@@ -17,7 +17,11 @@ if (check == 1) {
 <meta http-equiv="Refresh" content="0;url=list.jsp?pageNum=<%=pageNum%>">
 <%
 } else {
+	
     System.out.println("비밀번호 불일치: 제공된 비밀번호: " + pass); // 디버깅 출력 추가
+    %>
+    <meta http-equiv="Refresh" content="0;url=list.jsp?pageNum=<%=pageNum%>">
+    <%
 %>
 <script language="JavaScript">
 <!--
