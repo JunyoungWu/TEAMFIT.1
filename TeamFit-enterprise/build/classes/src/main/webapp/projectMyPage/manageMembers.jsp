@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Manage Members</title>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+
 </head>
 <body>
 <h1>회원 관리</h1>

@@ -3,14 +3,83 @@
 <%
     ExerciseDAO dao = ExerciseDAO.getInstance();
 %>
-<link href="style.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="script.js"></script>
+<%
+String loginID = (String) session.getAttribute("loginID");
+String check = "게스트";
+if(session.getAttribute("check")!=null){
+	check = (String) session.getAttribute("check");
+}
+%>
+ <head>
+ 
+<title>운동 추가</title>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+ <script language="javascript" src="script.js"></script>
+ <style type="text/css">
+ input[type="text"]{
+	  width: calc(100% - 20px);
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+}
+ </style>
+</head>
 
 
-
-<form method="post" action="addexProc.jsp" name="addex" >
+<header>
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+		<%System.out.println("체크 : "+check); %>
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+		<div class="mid">
+            <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
+            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+           
+        </div>
+		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+			<div class="mid">
+           
+            <a href="addApplication.jsp" >운동 신청</a>&nbsp;&nbsp;
+            <a href="delApplication.jsp"  >운동 삭제</a>&nbsp;&nbsp;
+           <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+        </div>
+        		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp">회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div>
+			<input type="button" value="로그인" onclick="location.href='login.jsp'" />
+ 
+			<input type="button" value="강사 로그인" onclick="location.href='inslogin.jsp'" />
+			
+			<input type="button" value="회원가입" onclick="location.href='regForm.jsp'" />
+		</div>
+		<% } %>
 		
-    <table style="margin-left: 5%">
+	</header>
+
+
+<form class="addExercise" method="post" action="addexProc.jsp" name="addex" >
+		
+    <table  style="margin: 0 auto; width: 50%;">
         <tr>
             <td colspan="2" align="center">운동 정보 입력</td>
         </tr>
@@ -39,9 +108,10 @@
         </tr>
        
         <tr>
-            <td colspan="2" align="center"><input type="button" value="운동등록" onclick="e_inputCheck()" />&nbsp;&nbsp; <input type="reset" value="다시입력" /></td>
+            <td colspan="2" align="center"><input type="button" value="운동등록" onclick="e_inputCheck()" /></td>
         </tr>
     </table>
 </form>
+
 
 

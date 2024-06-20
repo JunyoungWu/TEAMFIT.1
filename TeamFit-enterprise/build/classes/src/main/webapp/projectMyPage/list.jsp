@@ -6,10 +6,34 @@
 <%@ include file="color.jsp"%>
 <%
 String loginID = (String) session.getAttribute("loginID");
-String check = (String) session.getAttribute("check");
+String check = "게스트";
+if(session.getAttribute("check")!=null){
+	check = (String) session.getAttribute("check");
+}
+
 
 %>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+
+function loadPage(page) {
+    $.ajax({
+        url : page,
+        method : 'GET',
+        success : function(data) {
+            $('#loadPage').html(data).show(); // 콘텐츠를 보이게 함
+       
+        },
+        error : function() {
+            $('#loadPage').html('<p>Error loading page</p>').show(); // 에러 메시지를 보이게 함
+          
+        }
+    });
+}
+	
+
+</script>
 <style>
 	header {
 	display: flex;
@@ -55,79 +79,91 @@ number=count-(currentPage-1)*pageSize;//수정<4>
 
 </head>
 
-<body bgcolor="<%=bodyback_c%>">
- <header>
+<body>
+<header>
 		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
-
+		<%System.out.println("체크 : "+check); %>
 		<%
 		if (loginID != null && ("강사".equals(check))) {
 		%>
-
+		<div class="mid">
+            <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
+            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+           
+        </div>
 		<div class="right">
 			<span><%=loginID%>님 환영합니다.</span> 
-			<span><a href="modifyForm.jsp">정보수정</a></span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
 			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
 			<span><a href="logout.jsp">로그아웃</a></span>
 		</div>
 		<%
 		} else if (loginID != null && ("회원".equals(check))) {
 		%>
-		
+			<div class="mid">
+           
+            <a href="addApplication.jsp" >운동 신청</a>&nbsp;&nbsp;
+            <a href="delApplication.jsp"  >운동 삭제</a>&nbsp;&nbsp;
+           <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+        </div>
         		<div class="right">
 			<span><%=loginID%>님 환영합니다.</span> 
-			<span><a href="modifyForm.jsp">정보수정</a></span> 
-			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp">회원탈퇴</a></span> 
 			<span><a href="logout.jsp">로그아웃</a></span>
 		</div>
 		<%
 		}else {
 		%>
-		<div>
+		<div> 
 			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+ 
 			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
-			<input type="button" value="회원가입" onclick="loadPage('regForm.jsp')" />
+			
+			<input type="button" value="회원가입" onclick="location.href='regForm.jsp'" />
 		</div>
 		<% } %>
 		
 	</header>
 	
+	<div id="loadPage"></div>
 	<center id="list">
-		<b>글목록(전체 글:<%=count%>)
-		</b>
-		<table width="700">
+		
+		<table>
 			<tr>
 				
-				<td style="text-decoration: none;" align="right" bgcolor="<%=value_c%>"><a
+				<td style="text-decoration: none;" align="right" ><a
 					 href="writeForm.jsp">글쓰기</a>
 				</td>
 		</table>
 		<%
 		if (count == 0) {
 		%>
-		<table width="700" border="1" cellpadding="0" cellspacing="0">
+		<table>
 			<tr>
 				<td align="center">게시판에 저장된 글이 없습니다.</td>
 		</table>
 		<%
 		} else {
 		%>
-		<table border="1" width="700" cellpadding="0" cellspacing="0"
-			align="center">
-			<tr height="30" bgcolor="<%=value_c%>">
-				<td align="center" width="50">번 호</td>
-				<td align="center" width="250">제 목</td>
-				<td align="center" width="100">작성자</td>
-				<td align="center" width="150">작성일</td>
-				<td align="center" width="50">조 회</td>
-				<td align="center" width="100">IP</td>
+		<table >
+			<tr >
+				<td align="center" >번 호</td>
+				<td align="center">제 목</td>
+				<td align="center" >작성자</td>
+				<td align="center">작성일</td>
+				<td align="center" >조 회</td>
+				<td align="center" >IP</td>
 			</tr>
 			<%
 			for (int i = 0; i < articleList.size(); i++) {
 				BoardVO article = (BoardVO) articleList.get(i);
 			%>
-			<tr height="30">
-				<td align="center" width="50"><%=number--%></td>
-				<td width="250">
+			<tr>
+				<td align="center" ><%=number--%></td>
+				<td >
 					<!-- 수정 <5> -->
 					<%
       int wid=0; 
@@ -150,11 +186,11 @@ number=count-(currentPage-1)*pageSize;//수정<4>
 					}
 					%>
 				</td>
-				<td align="center" width="100"><a
+				<td align="center" ><a
 					href="mailto:<%=article.getEmail()%>"> <%=article.getWriter()%></a></td>
-				<td align="center" width="150"><%=sdf.format(article.getRegdate())%></td>
-				<td align="center" width="50"><%=article.getReadcount()%></td>
-				<td align="center" width="100"><%=article.getIp()%></td>
+				<td align="center"><%=sdf.format(article.getRegdate())%></td>
+				<td align="center"><%=article.getReadcount()%></td>
+				<td align="center"><%=article.getIp()%></td>
 			</tr>
 			<%
 			}

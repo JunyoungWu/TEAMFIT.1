@@ -1,195 +1,90 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="projectMyPage.*, java.util.*"%>
 <%@ page import="java.util.*"%>
-<%
+<%@ page import="java.text.SimpleDateFormat"%>
+<%int pageSize = 10;
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 String loginID = (String) session.getAttribute("loginID");
-String check = (String) session.getAttribute("check");
+String check = "게스트";
+if(session.getAttribute("check")!=null){
+	check = (String) session.getAttribute("check");
+}
 
-%>
+String pageNum = request.getParameter("pageNum");
+if (pageNum == null) {
+    pageNum = "1";
+}
+int currentPage = Integer.parseInt(pageNum);
+int startRow = (currentPage - 1) * pageSize + 1;
+int endRow = currentPage * pageSize;
+
+int number = 0;
+
+List<BoardVO> articleList = null;
+int count = 0;
+BoardDAO dbPro = BoardDAO.getInstance();
+count = dbPro.getArticleCount();
+if (count > 0) {
+	articleList = dbPro.getArticleList(startRow, endRow);
+}
+number=count-(currentPage-1)*pageSize;
+ %>
+
+
+
 <html>
 <head>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+
 <script language="javascript" src="script.js"></script>
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src="https://kit.fontawesome.com/dd1c09ef10.js" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://kit.fontawesome.com/dd1c09ef10.js"
+	crossorigin="anonymous"></script>
 <title>Main Site</title>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	var insloginID = '<%= loginID %>';
-	var check = '<%= check %>';
-	
-	   function loadPage(page) {
-	        $.ajax({
-	            url: page,
-	            method: 'GET',
-	            success: function(data) {
-	                $('#content').html(data);
-	                $('#slideshow').hide(); // 슬라이드쇼 숨기기
-	            },
-	            error: function() {
-	                $('#content').html('<p>Error loading page</p>');
-	            }
-	        });
-	    }
-	function handleInstructorMenuClick() {
-        if (insloginID != null) {
-          	var checkins = insloginID;
-            loadPage('instMenu.jsp', '.middle');
-        } else {
-        	  alert("강사만 이용할 수 있는 메뉴입니다.");
+
+
+function loadPage(page) {
+    $.ajax({
+        url : page,
+        method : 'GET',
+        success : function(data) {
+            $('#loadPage').html(data).show(); // 콘텐츠를 보이게 함
+            $('#slideshow').hide(); // 슬라이드쇼 숨기기
+        },
+        error : function() {
+            $('#loadPage').html('<p>Error loading page</p>').show(); // 에러 메시지를 보이게 함
+            $('#slideshow').hide(); // 슬라이드쇼 숨기기
         }
-    }
+    });
+}
+	
+
 </script>
 
-<style>
-.slideshow {
-	border-radius:15px;
-	background-color: #569ee6;
-	height: 465px;
-	width : 90%;
-	margin-left:5%;
-	min-width: 900px;
-	position: relative;
-	 overflow: hidden; 
-}
- .footer {
-            text-align: center;
-        }
-.slideshow_slides {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-}
-/* 4장의 이미지를 기준점으로 모두 이동 */
-.slideshow_slides a {
-	border-radius: 15px;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	display: inline-block;
-}
-/*네비게이션네브바를 중앙에 배치*/
-.slideshow_nav a {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	color: #fff;
-	font-size: 62px;
-	transform: translateY(-50%);
-	opacity: 0.5;
-}
-/* 중앙을기점으로 좌우 이동 */
-.slideshow_nav a.prev {
-	margin-left: -462px;
-}
 
-.slideshow_nav a.next {
-	margin-left: 400px;
-}
-/* 인디게이터를 슬라이드쇼 아래 중앙위치 배치 */
-.indicator {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 20px;
-	text-align: center;
-}
-
-.indicator a {
-	display: inline-block;
-	padding: 5px;
-	font-size: 24px;
-	color: #1473d3;
-	opacity: 0.8;
-}
-
-.indicator a.active {
-	color: rgb(255, 162, 0);
-}
-
-html, body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
-	background-color: #1473d3;
-}
-
-header {
-	display: flex;
-	justify-content: space-between;
-	padding: 10px;
-	background-color: #569ee6; /* 예시 배경색 */
-	width: 90%;
-	margin-left: 5%;
-	margin-top: 1%;
-	box-sizing: border-box;
-	border-radius: 10px;
-}
-
-.mid {
-	margin-right: 580px;
-	
-}
-.right {
-font-size: 13px;
-	display: flex;
-	align-items: center;
-}
-
-.right span {
-	margin-left: 10px;
-	margin-bottom: 60px;
-}
-.mid a {
-  border: 2px solid rgb(138, 175, 231);
-  border-radius: 30px;
-  color: black;
-  font-size: 15px;
-  text-decoration: none;
-  padding: 10px 20px; /* 상하 10px, 좌우 20px의 패딩을 설정 */
-  display: inline-block; /* a 요소를 블록 요소처럼 취급하되, 줄바꿈은 일어나지 않도록 설정 */
-  box-sizing: border-box; /* 패딩과 보더를 포함하여 크기를 계산 */
-}
-#content {
-    background-color: #569ee6;
-    text-align: center;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%; /* 추가 */
-    border-radius: 10px;
-    padding: 20px;
-    box-sizing: border-box; /* 추가 */
-}
-.middle {
-	width: 90%;
-	background-color: #1473d3; 
-	margin-left:5%; 
-}
-
-* {
-	box-sizing: border-box;
-}
-</style>
 </head>
 <body onload="call_js()">
-	<header>
+<header>
 		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
-
+		<%System.out.println("체크 : "+check); %>
 		<%
 		if (loginID != null && ("강사".equals(check))) {
 		%>
 		<div class="mid">
-            <a href="#" onclick="handleInstructorMenuClick()">강사 메뉴</a>&nbsp;&nbsp;
-            <a href="#" onclick="loadPage('addApplication.jsp')">운동 신청</a>&nbsp;&nbsp;
-            <a href="#" onclick="loadPage('deleteExerciseForm.jsp')">운동 삭제</a>&nbsp;&nbsp;
+            <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
+            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
             <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
            
         </div>
 		<div class="right">
 			<span><%=loginID%>님 환영합니다.</span> 
-			<span><a href="#" onclick="loadPage('modifyForm.jsp')">정보수정</a></span> 
-			<span><a href="#" onclick="loadPage('deleteForm.jsp')">회원탈퇴</a></span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
 			<span><a href="logout.jsp">로그아웃</a></span>
 		</div>
 		<%
@@ -197,65 +92,169 @@ font-size: 13px;
 		%>
 			<div class="mid">
            
-            <a href="#" onclick="loadPage('addApplication.jsp')">운동 신청</a>&nbsp;&nbsp;
-            <a href="#"  onclick="loadPage('delApplication.jsp')" >운동 삭제</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp" >운동 신청</a>&nbsp;&nbsp;
+            <a href="delApplication.jsp"  >운동 삭제</a>&nbsp;&nbsp;
            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
         </div>
         		<div class="right">
 			<span><%=loginID%>님 환영합니다.</span> 
-			<span><a href="#" onclick="loadPage('modifyForm.jsp')">정보수정</a></span> 
-			<span><a href="#" onclick="loadPage('deleteForm.jsp')">회원탈퇴</a></span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp">회원탈퇴</a></span> 
 			<span><a href="logout.jsp">로그아웃</a></span>
 		</div>
 		<%
 		}else {
 		%>
-		<div>
+		<div> 
 			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+ 
 			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
-			<input type="button" value="회원가입" onclick="loadPage('regForm.jsp')" />
+			
+			<input type="button" value="회원가입" onclick="location.href='regForm.jsp'" />
 		</div>
 		<% } %>
 		
 	</header>
+	
 	<hr>
-	  <div id="content" >
-	  
-	  </div>
-	<div  id="slideshow" class="slideshow">
+	<div id="loadPage"></div>
+	<div id="slideshow" class="slideshow">
 		<div class="slideshow_slides">
-			<a href="#"><img src="./image/slide-1.jpg" alt="slide1" /></a>
-			<a href="#"><img src="./image/slide-2.jpg" alt="slide1" /></a>
-			<a href="#"><img src="./image/slide-3.jpg" alt="slide1" /></a>
-			<a href="#"><img src="./image/slide-4.jpg" alt="slide1" /></a>
+			<a href="#"><img src="./image/slide-1.jpg" alt="slide1" /></a> <a
+				href="#"><img src="./image/slide-2.jpg" alt="slide1" /></a> <a
+				href="#"><img src="./image/slide-3.jpg" alt="slide1" /></a> <a
+				href="#"><img src="./image/slide-4.jpg" alt="slide1" /></a>
 		</div>
 		<div class="slideshow_nav">
-			<a href="#" class="prev"><i class="fa-solid fa-circle-chevron-left"></i></a>
-			<a href="#" class="next"><i class="fa-solid fa-circle-chevron-right"></i></a>
+			<a href="#" class="prev"><i
+				class="fa-solid fa-circle-chevron-left"></i></a> <a href="#"
+				class="next"><i class="fa-solid fa-circle-chevron-right"></i></a>
 		</div>
 		<div class="indicator">
 			<a href="#" class="active"><i class="fa-solid fa-circle-dot"></i></a>
-			<a href="#"><i class="fa-solid fa-circle-dot"></i></a>
-			<a href="#"><i class="fa-solid fa-circle-dot"></i></a>
-			<a href="#"><i class="fa-solid fa-circle-dot"></i></a>
+			<a href="#"><i class="fa-solid fa-circle-dot"></i></a> <a href="#"><i
+				class="fa-solid fa-circle-dot"></i></a> <a href="#"><i
+				class="fa-solid fa-circle-dot"></i></a>
 		</div>
 		<br>
 	</div>
+	<br><hr><br>
+	
+	<div class="midd" >
+		<div>
+			<h2>현재 개설된 운동</h2>
+			<table id="exList">
+				<tr>
+					<th>번호</th>
+					<th>운동명</th>
+					<th>장소</th>
+					<th>날짜</th>
+					<th>운동인원</th>
+					<th>가격</th>
+				</tr>
+				<%
+				ExerciseDAO dao = ExerciseDAO.getInstance();
+				List<ExerciseVO> exerciseList = dao.getAllExercises();
+				for (ExerciseVO vo : exerciseList) {
+				%>
+				<tr>
+					<td><%=vo.getE_no()%></td>
+					<td><%=vo.getE_name()%></td>
+					<td><%=vo.getE_location()%></td>
+					<td><%=vo.getE_date()%></td>
+					<td><%=vo.getE_memnum()%></td>
+					<td><%=vo.getE_price()%></td>
+				</tr>
+				<%
+				}
+				%>
+			</table>
+		</div>
+		<div>
+			 <h2 style="margin-left: 8%">문의 게시판</h2>
+			<center id="list">
+		
+	
+		<%
+		if (count == 0) {
+		%>
+		<table class="list" width="700" border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="center">게시판에 저장된 글이 없습니다.</td>
+		</table>
+		<%
+		} else {
+		%>
+		<table class="list" border="1" width="700" cellpadding="0" cellspacing="0"
+			align="center">
+			<tr height="30" >
+				<td align="center" width="50">번 호</td>
+				<td align="center" width="250">제 목</td>
+				<td align="center" width="100">작성자</td>
+				<td align="center" width="150">작성일</td>
+				<td align="center" width="50">조 회</td>
+				<td align="center" width="100">IP</td>
+			</tr>
+			<%
+			for (int i = 0; i < articleList.size(); i++) {
+				BoardVO article = (BoardVO) articleList.get(i);
+			%>
+			<tr height="30">
+				<td align="center" width="50"><%=number--%></td>
+				<td width="250">
+					<!-- 수정 <5> -->
+					<%
+      int wid=0; 
+      if(article.getDepth()>0){
+        wid=5*(article.getDepth());
+ %>
+  <img src="images/level.gif" width="<%=wid%>" height="16">
+  <img src="images/re.gif">
+ <%}else{%>
+  <img src="images/level.gif" width="<%=wid%>" height="16">
+ <%}%>
+					
+					 <a 
+					href="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>"> 
+						<%=article.getSubject()%></a> <%
+ if (article.getReadcount() >= 20) {
+ %> <img
+					src="images/hot.gif" border="0" height="16">
+					<%
+					}
+					%>
+				</td>
+				<td align="center" width="100"><a
+					href="mailto:<%=article.getEmail()%>"> <%=article.getWriter()%></a></td>
+				<td align="center" width="150"><%=sdf.format(article.getRegdate())%></td>
+				<td align="center" width="50"><%=article.getReadcount()%></td>
+				<td align="center" width="100"><%=article.getIp()%></td>
+			</tr>
+			<%
+			}
+			%>
+		</table>
+		<%
+		}
+		%>
+		
+        
+	</center>
+		</div>
+	</div>
 	<hr>
-	  <footer>
-            <div class="footer content1">
-                <a href="">다운로드</a>
-                <a href="">개인정보처리방침</a>
-                <a href="">신고</a>
-                <a href="">이메일무단수집거부</a>
-            </div>
-            <div  class="footer content2">
-                <p>팀피트컴퍼니 : 서울시 성동구 무학로2길 54 신방빌딩 4,5층 tel:012-345-7890</p>
-                <p>
-                    Copyright <span>ⓒ</span> 2018 tmft, Inc. All right reserved. 
-                    Adress: 23-455-1234
-                </p>
-            </div>
-        </footer>
+	<footer>
+		<div class="footer content1">
+			<a href="">다운로드</a> <a href="">개인정보처리방침</a> <a href="">신고</a> <a
+				href="">이메일무단수집거부</a>
+		</div>
+		<div class="footer content2">
+			<p>팀피트컴퍼니 : 서울시 성동구 무학로2길 54 신방빌딩 4,5층 tel:012-345-7890</p>
+			<p>
+				Copyright <span>ⓒ</span> 2018 tmft, Inc. All right reserved. Adress:
+				23-455-1234
+			</p>
+		</div>
+	</footer>
 </body>
 </html>

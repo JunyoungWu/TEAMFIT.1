@@ -3,9 +3,12 @@
 <%@ page import="projectMyPage.*"%>
 <%
 StudentDAO dao = StudentDAO.getInstance();
+
+String check = (String) session.getAttribute("check");
 %>
 
 <script language="javascript" src="script.js"></script>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
 
 <%
 String loginID = (String) session.getAttribute("loginID");
@@ -14,12 +17,8 @@ StudentVO vo = dao.getMember(loginID);
 <head>
 <title>회원 정보 수정</title>
 <style type="text/css">
-body {
-    background-color: #1473d3;
-    text-align: center; /* 추가 */
-}
 
-table {
+#modifyForm table {
     width: 60%;
     border-collapse: collapse;
     margin: 0 auto; /* 중앙 정렬 */
@@ -29,18 +28,18 @@ table {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-td {
+#modifyForm td {
     padding: 10px;
 }
 
-td[colspan="2"] {
+#modifyForm  td[colspan="2"] {
     background-color: #569ee6;
     color: #fff;
     font-weight: bold;
     border-radius: 10px 10px 0 0;
 }
 
-input[type="submit"] {
+#modifyForm input[type="submit"] {
     width: 30%;
     padding: 10px;
     background-color: #1473d3;
@@ -51,7 +50,7 @@ input[type="submit"] {
     font-size: 16px;
 }
 
-input[type="button"] {
+#modifyForm input[type="button"] {
     background-color: #007acc;
     color: #ffffff;
     border: none;
@@ -62,7 +61,7 @@ input[type="button"] {
     margin: 5px;
 }
 
-input[type="text"] {
+#modifyForm input[type="text"] {
     width: 30%;
     height: 50px;
     border: none;
@@ -72,7 +71,7 @@ input[type="text"] {
     background-color: #e0f7fa;
 }
 
-input[type="password"] {
+#modifyForm input[type="password"] {
     width: 30%;
     height: 50px;
     border: none;
@@ -82,13 +81,63 @@ input[type="password"] {
     background-color: #e0f7fa;
 }
 
-input[type="submit"]:hover {
+
+#regForm input[type="submit"]:hover {
     background-color: #105a9d;
 }
 </style>
 
 </head>
-<form name="regForm" method="post" action="modifyProc.jsp">
+
+<header>
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+		<%System.out.println("체크 : "+check); %>
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+		<div class="mid">
+            <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
+            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+           
+        </div>
+		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+			<div class="mid">
+           
+            <a href="addApplication.jsp" >운동 신청</a>&nbsp;&nbsp;
+            <a href="delApplication.jsp"  >운동 삭제</a>&nbsp;&nbsp;
+           <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+        </div>
+        		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp">회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div>
+			<input type="button" value="로그인" onclick="location.href='login.jsp'" />
+ 
+			<input type="button" value="강사 로그인" onclick="location.href='inslogin.jsp'" />
+			
+			<input type="button" value="회원가입" onclick="location.href='regForm.jsp'" />
+		</div>
+		<% } %>
+		
+	</header>
+	<br><hr><br>
+<form id="modifyForm" name="regForm" method="post" action="modifyProc.jsp">
 	<table style="margin-left: 5%; margin: 0 auto;" border="1">
 
 		<tr>

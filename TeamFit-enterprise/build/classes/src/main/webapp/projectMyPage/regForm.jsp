@@ -1,91 +1,92 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="projectMyPage.*"%>
+<%
+String loginID = (String) session.getAttribute("loginID");
+String check = "게스트";
+if(session.getAttribute("check")!=null){
+	check = (String) session.getAttribute("check");
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        
-        margin: 0;
-        padding: 20px;
-    }
-    
-    .container {
-        max-width: 55%;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-	
-    .form-table {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        border-collapse: collapse;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    }
+<script type="text/javascript">
 
-    .form-table th, .form-table td {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-    }
 
-    .form-table th {
-        background-color: #f2f2f2;
-        text-align: center;
-    }
-
-    .form-table td {
-        text-align: left;
-    }
-	.submit {
-    
-   	width: 80%
-    color: black; /* 폰트 색상을 흰색으로 설정 */
-    font-size: 16px; /* 폰트 크기 설정 */
-    padding: 50px; /* 내부 패딩 설정 */
-    border-radius: 5px; /* 모서리 둥글게 */
+function loadPage(page) {
+    $.ajax({
+        url : page,
+        method : 'GET',
+        success : function(data) {
+            $('#loadPage').html(data).show(); // 콘텐츠를 보이게 함
+           
+        },
+        error : function() {
+            $('#loadPage').html('<p>Error loading page</p>').show(); // 에러 메시지를 보이게 함
+          
+        }
+    });
 }
+	
 
-
-    .form-table input[type="text"], .form-table input[type="password"], .form-table select {
-        width: calc(100% - 10px);
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
-    }
-
-    .form-table input[type="button"], .form-table input[type="submit"], .form-table input[type="reset"] {
-        padding: 8px 16px;
-        background-color: #1473d3;
-        color: #fff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .form-table input[type="button"]:hover, .form-table input[type="submit"]:hover, .form-table input[type="reset"]:hover {
-        background-color: #105a9d;
-    }
-
-    .form-table input[type="button"]:focus, .form-table input[type="submit"]:focus, .form-table input[type="reset"]:focus {
-        outline: none;
-    }
-</style>
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script language="javascript" src="script.js"></script>
 </head>
-<body>
-<div class="container">
-    <form method="post" action="regProc.jsp" name="regForm">
+	<header>
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+		<%System.out.println("체크 : "+check); %>
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+		<div class="mid">
+            <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
+            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+           
+        </div>
+		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+			<div class="mid">
+           
+            <a href="addApplication.jsp" >운동 신청</a>&nbsp;&nbsp;
+            <a href="delApplication.jsp"  >운동 삭제</a>&nbsp;&nbsp;
+           <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+        </div>
+        		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp">회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div> 
+			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+ 
+			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
+			
+			<input type="button" value="회원가입" onclick="location.href='regForm.jsp'" />
+		</div>
+		<% } %>
+		
+	</header>
+	<br><hr><br>
+	<div id="loadPage"></div>
+    <form  id="reg-container" method="post" action="regProc.jsp" name="regForm">
         <table class="form-table">
             <tr>
                 <th colspan="2">회원 가입 정보 입력</th>
@@ -111,11 +112,11 @@
             </tr>
             <tr>
                 <td align="right">전화번호 :</td>
-                <td>
+                <td id="pNum">
                     <select name="phone1">
                         <option value="02">02</option>
                         <option value="010">010</option>
-                    </select> - <input type="text" name="phone2" size="5" /> - <input type="text" name="phone3" size="5" />
+                    </select> - <br><br><input type="text" name="phone2" size="5" /> - <br><br><input type="text" name="phone3" size="5" />
                 </td>
             </tr>
             <tr>
@@ -140,12 +141,11 @@
             </tr>
             <tr class = "submit">
                 <td  colspan="2" >
-                   &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <input type="button" value="회원가입" onclick="inputCheck()" />&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
-                    <input type="reset" value="다시입력" />
+              <input type="button" value="회원가입" onclick="inputCheck()" />
                 </td>
             </tr>
         </table>
     </form>
-</div>
+
 </body>
 </html>

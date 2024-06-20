@@ -1,9 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="projectMyPage.*, java.util.*"%>
+<%
+String loginID = (String) session.getAttribute("loginID");
+String check = "게스트";
+if(session.getAttribute("check")!=null){
+	check = (String) session.getAttribute("check");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+
+
+function loadPage(page) {
+    $.ajax({
+        url : page,
+        method : 'GET',
+        success : function(data) {
+            $('#loadPage').html(data).show(); // 콘텐츠를 보이게 함
+            $('#slideshow').hide(); // 슬라이드쇼 숨기기
+        },
+        error : function() {
+            $('#loadPage').html('<p>Error loading page</p>').show(); // 에러 메시지를 보이게 함
+            $('#slideshow').hide(); // 슬라이드쇼 숨기기
+        }
+    });
+}
+	
+
+</script>
 <meta charset="UTF-8">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+
 <title>내 운동 목록</title>
 <script type="text/javascript">
     function checkAll(box) {
@@ -14,61 +43,62 @@
     }
 </script>
    <style type="text/css">
- body {
-        
-        background-color: #1473d3;
-    }
-
- 
-
-  table {
-        width: 60%;
-       border-collapse: collapse;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-td {
-        padding: 10px;
-    } 
-
-td[colspan="2"] {
-        background-color: #569ee6;
-        color: #fff;
-        font-weight: bold;
-        border-radius: 10px 10px 0 0;
-    }
 
 
-
-input[type="submit"] {
-        width: 30%;
-        padding: 10px;
-        background-color: #1473d3;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-input[type="text"]{
-	width: 30%;
-	height: 50px;
-	border: none;
-        border-radius: 5px;
-           font-size: 16px;
-}
- input[type="submit"]:hover {
-        background-color: #105a9d;
-    } 
 </style>
 </head>
 <body>
-    <h1>내 운동 목록</h1>
-    <form action="delApplicationProc.jsp" method="post">
+<header>
+		<img onclick="location.href = 'index.jsp';" src="./image/TeamFit.png" style="width: 150px; height: 80px;" alt="" />
+		<%System.out.println("체크 : "+check); %>
+		<%
+		if (loginID != null && ("강사".equals(check))) {
+		%>
+		<div class="mid">
+            <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
+            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
+            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+            <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+           
+        </div>
+		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp" >회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		} else if (loginID != null && ("회원".equals(check))) {
+		%>
+			<div class="mid">
+           
+            <a href="addApplication.jsp" >운동 신청</a>&nbsp;&nbsp;
+            <a href="delApplication.jsp"  >운동 삭제</a>&nbsp;&nbsp;
+           <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
+        </div>
+        		<div class="right">
+			<span><%=loginID%>님 환영합니다.</span> 
+			<span><a href="modifyForm.jsp" >정보수정</a></span> 
+			<span><a href="deleteForm.jsp">회원탈퇴</a></span> 
+			<span><a href="logout.jsp">로그아웃</a></span>
+		</div>
+		<%
+		}else {
+		%>
+		<div> 
+			<input type="button" value="로그인" onclick="loadPage('login.jsp')" />
+ 
+			<input type="button" value="강사 로그인" onclick="loadPage('inslogin.jsp')" />
+			
+			<input type="button" value="회원가입" onclick="location.href='regForm.jsp'" />
+		</div>
+		<% } %>
+		
+	</header>
+	
+	<div id="loadPage"></div>
+    <form id="delEx" action="delApplicationProc.jsp" method="post">
+        <h1>내 운동 목록</h1>
         <table border="1">
             <tr>
                 <th><input type="checkbox" onclick="checkAll(this)"></th>

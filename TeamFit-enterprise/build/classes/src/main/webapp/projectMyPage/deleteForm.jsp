@@ -3,12 +3,12 @@
  <head>
  <title>회원탈퇴</title>
  <style type="text/css">
-body {
+#deleteForm body {
     background-color: #1473d3;
     text-align: center; /* 추가 */
 }
 
-table {
+#deleteForm table {
     width: 30%;
     border-collapse: collapse;
     margin: 0 auto; /* 중앙 정렬 */
@@ -18,18 +18,18 @@ table {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-td {
+#deleteForm td {
     padding: 10px;
 }
 
-td[colspan="2"] {
+#deleteForm td[colspan="2"] {
     background-color: #569ee6;
     color: #fff;
     font-weight: bold;
     border-radius: 10px 10px 0 0;
 }
 
-input[type="submit"] {
+#deleteForm input[type="submit"] {
     width: 30%;
     padding: 10px;
     background-color: #1473d3;
@@ -40,7 +40,7 @@ input[type="submit"] {
     font-size: 16px;
 }
 
-input[type="button"] {
+#deleteForm input[type="button"] {
     background-color: #007acc;
     color: #ffffff;
     border: none;
@@ -53,7 +53,7 @@ input[type="button"] {
 
 
 
-input[type="password"] {
+#deleteForm input[type="password"] {
     width: 100%;
     height: 50px;
     border: none;
@@ -63,7 +63,7 @@ input[type="password"] {
     background-color: #e0f7fa;
 }
 
-input[type="submit"]:hover {
+#deleteForm input[type="submit"]:hover {
     background-color: #105a9d;
 }
 </style>
@@ -80,8 +80,9 @@ input[type="submit"]:hover {
  }
  }
  </script>
+ 
  <body onload="begin()">
- <form name="myForm" method="post" 
+ <form id="deleteForm" name="myForm" method="post" 
 action="deleteProc.jsp" onsubmit="return checkIt()">
  <table width="260" border="1" align="center">
  <tr>

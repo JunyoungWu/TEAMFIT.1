@@ -1,11 +1,12 @@
 @charset "UTF-8";
+
 body {
-    background-color: #1473d3;
-    font-family: Arial, sans-serif;
-    color: #333;
-    
+	background-color: #1473d3;
+	font-family: Arial, sans-serif;
+	color: #333;
 }
-	header {
+
+header {
 	display: flex;
 	justify-content: space-between;
 	padding: 10px;
@@ -16,236 +17,766 @@ body {
 	box-sizing: border-box;
 	border-radius: 10px;
 }
+
 h2, h3 {
-    color: #007acc;
+	color: #007acc;
+}
+
+#content {
+	background-color: #569ee6;
+	text-align: center;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%; /* 추가 */
+	border-radius: 10px;
+	padding: 20px;
+	box-sizing: border-box; /* 추가 */
 }
 
 table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-}
-
-table th, table td {
-	
-    padding: 20px;
-    border: 1px solid #ddd;
-    text-align: center;
-    text-decoration: none;
-    min-height: 50px; /* Set minimum height for rows */
-}
-
-table th {
-    background-color: #007acc;
-    color: #ffffff;
-}
-
-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-
-input[type="submit"] {
-    background-color: #007acc;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-}
-
-
-
-input[type="button"] {
-    background-color: #007acc;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-}
-
-input[type="submit"]:hover {
-    background-color: #005f99;
-}
-input[type="button"] {
-    background-color: #007acc;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-}
-
-input[type="button"]:hover{
-    background-color: #005f99;
-}
-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    resize: none;
-    font-size: 16px;
-}
-	#content {
-    background-color: #569ee6;
-    text-align: center;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%; /* 추가 */
-    border-radius: 10px;
-    padding: 20px;
-    box-sizing: border-box; /* 추가 */
-}
-
-#content table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
+	width: 80%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
 }
 
 #content table th, table td {
-	
-    padding: 20px;
-    border: 1px solid #ddd;
-    text-align: center;
-    text-decoration: none;
-    min-height: 50px; /* Set minimum height for rows */
+	padding: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	text-decoration: none;
+	min-height: 50px; /* Set minimum height for rows */
 }
 
 #content table th {
-    background-color: #007acc;
-    color: #ffffff;
+	background-color: #007acc;
+	color: #ffffff;
 }
 
 #content table tr:nth-child(even) {
-    background-color: #f2f2f2;
+	background-color: #f2f2f2;
 }
 
-
+#loadPage {
+	display: none; /* 기본적으로 숨김 */
+}
 
 #content-container {
-    width: 80%;
-    margin: 20px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 80%;
+	margin: 20px auto;
+	background-color: #ffffff;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .comments, .commentWrite {
-    width: 80%;
-    margin: 20px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 80%;
+	margin: 20px auto;
+	background-color: #ffffff;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
-    font-weight: bold;
+	font-weight: bold;
+}
+/*운동 삭제*/
+#delEx {
+	max-width: 85%;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#delEx h1 {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+#delEx table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+#delEx th, #delEx td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+#delEx th {
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
+#delEx input[type="checkbox"] {
+	margin: 0 auto;
+}
+
+#delEx input[type="submit"] {
+	cursor: pointer;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+/*게시글 작성*/
+#writeArticle table {
+	width: 80%;
+	margin: 20px auto;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+#writeArticle textarea {
+	width: 95%;
+	height: 80px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	resize: none;
+	font-size: 16px;
+}
+
+#noInput td {
+	width: 50px;
+}
+
+#writeArticle table th, table td {
+	padding: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	text-decoration: none;
+	min-height: 50px; /* Set minimum height for rows */
+}
+
+#writeArticle table th {
+	background-color: #007acc;
+	color: #ffffff;
+}
+
+#writeArticle table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+/*운동 추가*/
+#addEx body {
+	background-color: #1473d3;
+}
+
+#addEx table {
+	width: 60%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	background-color: #f9f9f9;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#addEx td {
+	padding: 10px;
+}
+
+#addEx td[colspan="2"] {
+	background-color: #569ee6;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 10px 10px 0 0;
+}
+
+#addEx input[type="submit"] {
+	width: 30%;
+	padding: 10px;
+	background-color: #1473d3;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+#addEx input[type="text"] {
+	width: 30%;
+	height: 50px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+#addEx input[type="submit"]:hover {
+	background-color: #105a9d;
 }
 
 /* writeArticle 클래스 스타일 */
-.writeArticle input[type="text"]{
-	  width: calc(100% - 20px);
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
+.writeArticle input[type="text"] {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
 }
 /* updateArticle 클래스 스타일 */
-.updateArticle input[type="text"]{
-	  width: calc(100% - 20px);
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
+.updateArticle input[type="text"] {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+/*inst menu*/
+#navbar-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 85%;
+			margin: 0 auto;
+			border-bottom: 1px solid #ccc;
+			background-color: white; /* 배경색 추가 */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 네비게이션 바에 그림자 추가 */
+			padding-bottom: 10px; /* 하단 패딩 추가 */
+		}
+
+		#navbar {
+			display: flex;
+			justify-content: center;
+			gap: 20px;
+			padding: 10px;
+			margin-top: 10px; /* 네비게이션 바 상단 여백 */
+		}
+
+		#navbar a {
+			text-decoration: none;
+			color: white; /* 텍스트 색상 흰색 */
+			padding: 10px 20px;
+			border: 1px solid darkblue; /* 테두리 어두운 파란색 */
+			border-radius: 4px;
+			background: linear-gradient(to bottom, #1e90ff, #1c75d1); /* 그라데이션 배경 */
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 버튼에 그림자 추가 */
+			transition: background 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
+		}
+
+		#navbar a:hover {
+			background: linear-gradient(to bottom, #1c75d1, #154a8a); /* 호버 시 버튼 배경색 그라데이션 */
+			box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 증가 */
+		}
+
+
+
+
+/* addExercise 클래스 스타일 */
+.addExercise input[type="text"] {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
 }
 
 /* commentWrite 클래스 스타일 */
 .commentWrite textarea {
-    width: 100%;
-    height: 100px;
+	width: 100%;
+	height: 100px;
 }
+
 .commentWrite button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+	padding: 10px 20px;
+	background-color: #4CAF50;
 }
+
 .commentWrite button:hover {
-    background-color: #45a049;
+	background-color: #45a049;
 }
 
 /* comments 클래스 스타일 */
 .comments button {
-    padding: 5px 10px;
-    background-color: #f44336;
-}
-.comments button:hover {
-    background-color: #d32f2f;
+	padding: 5px 10px;
+	background-color: #f44336;
 }
 
+.comments button:hover {
+	background-color: #d32f2f;
+}
+
+/*reg */
+#reg-container body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+}
+
+#reg-container {
+	max-width: 55%;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#reg-container   table {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	border-collapse: collapse;
+	border: 1px solid #ddd;
+	border-radius: 15px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#reg-container   table th, table td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+#reg-container   table th {
+	background-color: #f2f2f2;
+	text-align: center;
+}
+
+#reg-container   table td {
+	text-align: left;
+}
+
+#reg-container  .submit {
+	width: 80%; color : black; /* 폰트 색상을 흰색으로 설정 */
+	font-size: 16px; /* 폰트 크기 설정 */
+	padding: 50px; /* 내부 패딩 설정 */
+	border-radius: 5px;
+	color: black; /* 모서리 둥글게 */
+}
+
+#login-container td[colspan="2"] {
+	background-color: #569ee6;
+	color: black;
+	font-weight: bold;
+	border-radius: 10px 10px 0 0;
+}
+
+#reg-container  table select, table input[type="text"], table input[type="password"]
+	{
+	width: 80%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+#pNum 
+  #reg-container    table input[type="button"], table input[type="submit"]
+	{
+	padding: 8px 16px;
+	background-color: #1473d3;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#reg-container  table input[type="button"]:hover, table input[type="submit"]:hover,
+	table input[type="reset"]:hover {
+	background-color: #105a9d;
+}
+
+#reg-container table input[type="button"]:focus, table input[type="submit"]:focus
+	{
+	outline: none;
+}
 
 /*login */
+#logIn body {
+	background-color: #1473d3;
+}
 
-#login-container table {
-        width: 60%;
-       border-collapse: collapse;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
- #login-container   td[colspan="2"] {
-        background-color: #569ee6;
-        color: #fff;
-        font-weight: bold;
-        border-radius: 10px 10px 0 0;
-    }
-    
-    
-  #login-container  input[type="text"], input[type="password"] {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-    
-   #login-container input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #1473d3;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    
-    #login-container input[type="submit"]:hover {
-        background-color: #105a9d;
-    } 
-    
+#logIn table {
+	width: 60%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	background-color: #f9f9f9;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
+#logIn td {
+	padding: 10px;
+}
+
+#logIn td[colspan="2"] {
+	background-color: #569ee6;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 10px 10px 0 0;
+}
+
+#logIn  input[type="text"], input[type="password"] {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+#logIn input[type="submit"] {
+	width: 100%;
+	padding: 10px;
+	background-color: #1473d3;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+#logIn input[type="submit"]:hover {
+	background-color: #105a9d;
+}
+
+/*main */
+#exList {
+	width: 100%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+#exList th, td {
+	padding: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	text-decoration: none;
+	min-height: 50px; /* Set minimum height for rows */
+}
+
+#exList th {
+	background-color: #007acc;
+	color: #ffffff;
+}
+
+#exList tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.slideshow {
+	border-radius: 15px;
+	background-color: #569ee6;
+	height: 465px;
+	width: 90%;
+	margin-left: 5%;
+	min-width: 900px;
+	position: relative;
+	overflow: hidden;
+}
+
+.footer {
+	text-align: center;
+}
+
+.list table {
+	width: 80%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+.list table th, table td {
+	padding: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	text-decoration: none;
+	min-height: 50px; /* Set minimum height for rows */
+}
+
+.list table th {
+	background-color: #007acc;
+	color: #ffffff;
+}
+
+.list table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.slideshow_slides {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+/* 4장의 이미지를 기준점으로 모두 이동 */
+.slideshow_slides a {
+	border-radius: 15px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: inline-block;
+}
+
+/* 네비게이션네브바를 중앙에 배치 */
+.slideshow_nav a {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	color: #fff;
+	font-size: 62px;
+	transform: translateY(-50%);
+	opacity: 0.5;
+}
+
+/* 중앙을기점으로 좌우 이동 */
+.slideshow_nav a.prev {
+	margin-left: -462px;
+}
+
+.slideshow_nav a.next {
+	margin-left: 400px;
+}
+
+/* 인디게이터를 슬라이드쇼 아래 중앙위치 배치 */
+.indicator {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 20px;
+	text-align: center;
+}
+
+.indicator a {
+	display: inline-block;
+	padding: 5px;
+	font-size: 24px;
+	color: #1473d3;
+	opacity: 0.8;
+}
+
+.indicator a.active {
+	color: rgb(255, 162, 0);
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	background-color: #1473d3;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: #569ee6; /* 예시 배경색 */
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 1%;
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+.mid {
+	margin-right: 580px;
+}
+
+.right {
+	font-size: 13px;
+	display: flex;
+	align-items: center;
+}
+
+input[type="button"] {
+	background-color: #007acc;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin: 5px;
+}
+
+.right span {
+	margin-left: 10px;
+	margin-bottom: 60px;
+}
+
+.mid a {
+	border: 2px solid rgb(138, 175, 231);
+	border-radius: 30px;
+	color: black;
+	font-size: 15px;
+	text-decoration: none;
+	padding: 10px 20px; /* 상하 10px, 좌우 20px의 패딩을 설정 */
+	display: inline-block; /* a 요소를 블록 요소처럼 취급하되, 줄바꿈은 일어나지 않도록 설정 */
+	box-sizing: border-box; /* 패딩과 보더를 포함하여 크기를 계산 */
+}
+
+#content {
+	background-color: #569ee6;
+	text-align: center;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%; /* 추가 */
+	border-radius: 10px;
+	padding: 20px;
+	box-sizing: border-box; /* 추가 */
+}
+
+.middle {
+	width: 90%;
+	background-color: #1473d3;
+	margin-left: 5%;
+}
+
+.midd {
+	width: 90%;
+	background-color: #569ee6;
+	margin-left: 5%;
+	display: flex;
+	justify-content: space-around;
+	border-radius: 10px;
+}
+
+/*게시판 */
+#list table {
+	width: 85%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+#list table th, table td {
+	padding: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	text-decoration: none;
+	min-height: 50px; /* Set minimum height for rows */
+}
+
+#list table th {
+	background-color: #007acc;
+	color: #ffffff;
+}
+
+#list table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+/* 운동 신청 메뉴 */
+#addApp {
+	max-width: 85%;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#addApp h1 {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+#exerciseTable {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+#exerciseTable th, #exerciseTable td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+#exerciseTable th {
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
+#exerciseForm, #addApplicationProc {
+	margin-top: 20px;
+}
+
+#exerciseForm label, #addApplicationProc label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+#exerciseForm input[type="text"], #exerciseForm input[type="submit"],
+	#addApplicationProc input[type="text"], #addApplicationProc input[type="submit"]
+	{
+	margin-bottom: 10px;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	width: calc(100% - 20px);
+	box-sizing: border-box;
+}
+
+#exerciseForm input[type="submit"], #addApplicationProc input[type="submit"]
+	{
+	cursor: pointer;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+/*게시글*/
+#post table {
+	width: 82%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+#post table th, table td {
+	padding: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	text-decoration: none;
+	min-height: 50px; /* Set minimum height for rows */
+}
+
+#post table th {
+	background-color: #007acc;
+	color: #ffffff;
+}
+
+#post table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}

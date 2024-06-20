@@ -7,7 +7,8 @@
 <html>
 <head>
     <title>운동 목록</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/projectMyPage/css/style.css">
+
 </head>
 <body>
     <center>

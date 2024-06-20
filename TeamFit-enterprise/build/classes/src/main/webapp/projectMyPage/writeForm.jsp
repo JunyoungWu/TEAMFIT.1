@@ -63,7 +63,7 @@ if(request.getParameter("num")!=null){
 	</header>
 	<br><hr><br>
  <center><b>글쓰기</b></center><br></br>
- <form class="writeArticle" method="post" name="writeForm" action="writeProc.jsp">
+ <form id="writeArticle" class="writeArticle" method="post" name="writeForm" action="writeProc.jsp">
 <input type="hidden" name="num" value="<%=num%>">
  <input type="hidden" name="ref" value="<%=ref%>">
  <input type="hidden" name="step" value="<%=step%>">
@@ -76,35 +76,33 @@ align="center" bgcolor="<%=bodyback_c %>">
     </td>
  </tr>
  <tr>
-    <td width="70" bgcolor="<%=value_c %>" align="center">이름</td>
+    <td id="noInput" style="width: 50px">이름</td>
     <td width="330">
  <input type="text" size="12" maxlength="12" name="writer"/>
     </td>
  </tr>
  <tr>
-    <td width="70" bgcolor="<%=value_c %>" align="center">이메일</td>
-    <td width="330">
-<%if(request.getParameter("num")==null){%>
+    <td id="noInput" style="width: 50px">이메일</td>
+    <td >
+
    <input type="text" size="50" maxlength="50" name="email"/>
- <%}else{%>
-   <input type="text" size="50" maxlength="50" name="subject" value="[답변]"/>
- <%}%>  
+   
     </td>
  </tr>
  <tr>
-    <td width="70" bgcolor="<%=value_c %>" align="center">제목</td>
-    <td width="330">
+    <td  id="noInput" style="width: 50px">제목</td>
+    <td >
  <input type="text" size="50" maxlength="50" name="subject"/>
     </td>
  </tr>
  <tr>
-    <td width="70" bgcolor="<%=value_c %>" align="center">내용</td>
-    <td width="330">
+    <td id="noInput" style="width: 50px">내용</td>
+    <td>
  <textarea name="content" rows="13" cols="50"></textarea>
     </td>
  </tr>
  <tr>
-    <td width="70" bgcolor="<%=value_c %>" align="center">비밀번호</td>
+    <td id="noInput" style="width: 50px">비밀번호</td>
     <td width="330">
  <input type="password" size="10" maxlength="10" name="pass"/>
     </td>
