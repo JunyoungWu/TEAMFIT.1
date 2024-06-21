@@ -21,6 +21,8 @@ h1 {
 	margin-top: 10px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="text/javascript">
 	function loadPage(page) {
 		$.ajax({
@@ -46,8 +48,7 @@ h1 {
 		%>
 		<div class="mid">
             <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
-            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
-            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+            
             <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
            
         </div>
@@ -98,7 +99,8 @@ h1 {
 	</div>
 </div>
 	<br>
-<hr>
+		<br>
+	
 	<div id="icontent">
 	
 	</div>

@@ -88,8 +88,7 @@ number=count-(currentPage-1)*pageSize;//수정<4>
 		%>
 		<div class="mid">
             <a href="instMenu.jsp" >강사 메뉴</a>&nbsp;&nbsp;
-            <a href="addApplication.jsp"  >운동 신청</a>&nbsp;&nbsp;
-            <a href="deleteExerciseForm.jsp" >운동 삭제</a>&nbsp;&nbsp;
+       
             <a href="list.jsp" >문의 게시판</a>&nbsp;&nbsp;
            
         </div>

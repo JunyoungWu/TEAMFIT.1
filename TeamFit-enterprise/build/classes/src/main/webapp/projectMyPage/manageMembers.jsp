@@ -8,9 +8,9 @@
 
 </head>
 <body>
-<h1>회원 관리</h1>
 
-<form method="post" action="delSelectProc.jsp"> 
+
+<form id="delMem" method="post" action="delSelectProc.jsp"> 
 <table border="1">
   <tr>
     <th></th> 
@@ -38,10 +38,14 @@
     <td><%= member.getPhone1() %>-<%= member.getPhone2() %>-<%= member.getPhone3() %></td>
     <td><%= member.getEmail() %></td>
     <td><%= member.getAddress1() %> <%= member.getAddress2() %></td>
-  </tr>
-  <% } %>
+    <% } %>
+     </tr>
+     <tr>     <td colspan="6"><input  type="submit" value="선택된 회원 삭제"> </td></tr>
+
+ 
+ 
 </table>
-<input type="submit" value="선택된 회원 삭제"> 
+
 </form>
 
 </body>

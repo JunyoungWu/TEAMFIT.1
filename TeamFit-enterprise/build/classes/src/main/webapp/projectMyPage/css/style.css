@@ -239,6 +239,36 @@ label {
 	border-radius: 5px;
 	box-sizing: border-box;
 }
+
+.updateArticle input[type="text"] {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+#updateArticle input[type="button"] {
+	background-color: #007acc;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin: 5px;
+}
+#updateArticle input[type="submit"] {
+	background-color: #007acc;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin: 5px;
+}
+
 /*inst menu*/
 #navbar-container {
 			display: flex;
@@ -277,7 +307,9 @@ label {
 		}
 
 
-
+	#delMem input[type="submit"]{
+	margin-left: 50%;
+	}
 
 /* addExercise 클래스 스타일 */
 .addExercise input[type="text"] {
